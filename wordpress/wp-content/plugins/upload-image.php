@@ -60,17 +60,7 @@ function uploadFileToPost($request)
 {
   $postId = $request->get_param('post_id');
   $listImage = mypluginMediaUpload($request);
-  // $listImage = [
-  //   59,
-  //   60,
-  //   61,
-  //   62,
-  //   63,
-  //   64,
-  //   65,
-  //   66
-  // ];
-  return pushImageToContent($postId, $listImage);
+  return array('data'=>pushImageToContent($postId, $listImage));
 }
 
 function pushImageToContent($postId, $listImage)
@@ -107,7 +97,7 @@ function pushImageToContent($postId, $listImage)
   if ( is_wp_error( $updated_post ) ) {
       return new WP_Error( 'post_update_error', $updated_post->get_error_message(), array( 'status' => 500 ) );
   }
-  return array( 'message' => 'Post updated successfully' );
+  return $listImage;
 }
 
 function getWpGallery($images)
